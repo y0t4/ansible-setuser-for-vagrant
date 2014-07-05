@@ -1,0 +1,5 @@
+colon: ':'
+new_user:
+hashed_password:
+public_key_path:
+private_key_path:

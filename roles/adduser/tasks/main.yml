@@ -1,0 +1,26 @@
+- name: useradd {{ new_user }} with home directory
+  user: name={{ new_user }}
+        shell=/bin/bash
+        password={{ hashed_password }}
+
+- name: edit sudoers file
+  lineinfile: dest=/etc/sudoers
+              regexp='^{{ new_user }}'
+              insertafter=EOF
+              line='{{ new_user }} ALL=(ALL) NOPASSWD{{ colon }} ALL'
+
+- name: add public_key to authorized_keys
+  authorized_key: user={{ new_user }}
+                  key="{{ lookup('file', public_key_path) }}"
+
+- name: edit Vagrantfile to change ssh-login user
+  lineinfile: dest=/vagrant/Vagrantfile
+              regexp='{{ new_user }}'
+              insertafter='vm\.box '
+              line="config.ssh.username = '{{ new_user }}'"
+
+- name: edit Vagrantfile to change ssh-login private_key
+  lineinfile: dest=/vagrant/Vagrantfile
+              regexp='{{ private_key_path }}'
+              insertafter='ssh\.username'
+              line="config.ssh.private_key_path = '{{ private_key_path }}'"

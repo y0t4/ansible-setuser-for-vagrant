@@ -1,0 +1,3 @@
+- name: disable default user
+  user: name=vagrant
+        shell=/sbin/nologin
