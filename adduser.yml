@@ -1,5 +1,11 @@
 ---
 - hosts: all
   sudo: yes
+  vars_prompt:
+    - name: "password"
+      prompt: "Enter password"
+      private: True
+      confirm: True
+      encrypt: "sha512_crypt"
   roles:
     - adduser

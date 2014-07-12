@@ -1,7 +1,7 @@
 - name: useradd {{ new_user }} with home directory
   user: name={{ new_user }}
         shell=/bin/bash
-        password={{ hashed_password }}
+        password={{ password }}
 
 - name: edit sudoers file
   lineinfile: dest=/etc/sudoers
