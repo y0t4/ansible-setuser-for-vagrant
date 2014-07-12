@@ -1,0 +1,6 @@
+---
+- hosts: 127.0.0.1
+  connection: local
+  tasks:
+    - name: create ssh key
+      shell: "ssh-keygen -t rsa -N '' -f {{private_key_path}}"
