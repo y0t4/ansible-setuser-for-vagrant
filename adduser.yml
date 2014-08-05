@@ -1,6 +1,8 @@
 ---
 - hosts: all
   sudo: yes
+  vars:
+    public_key_path: "{{ private_key_path }}.pub"
   vars_prompt:
     - name: "password"
       prompt: "Enter password"
